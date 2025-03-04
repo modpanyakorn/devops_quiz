@@ -1,0 +1,120 @@
+  sampe  D:  …  DevOps Engineering  fork_quiz  devops_quiz   main    ?5 ~1            
+                                                                           1.845s   09:03:21       
+╰─ $ terraform apply -auto-approve   
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are    
+indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # docker_container.my_container will be created
+  + resource "docker_container" "my_container" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "node"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "my-express-app"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + ports {
+          + external = 3000
+          + internal = 3000
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+    }
+
+  # docker_image.my_app will be created
+  + resource "docker_image" "my_app" {
+      + id          = (known after apply)
+      + image_id    = (known after apply)
+      + name        = "node"
+      + repo_digest = (known after apply)
+    }
+
+  # null_resource.build_docker_image will be created
+  + resource "null_resource" "build_docker_image" {
+      + id = (known after apply)
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+null_resource.build_docker_image: Creating...
+null_resource.build_docker_image: Provisioning with 'local-exec'...
+null_resource.build_docker_image (local-exec): Executing: ["cmd" "/C" "docker build -t node -f Dockerfile ."]
+null_resource.build_docker_image (local-exec): #0 building with "desktop-linux" instance using docker driver
+
+null_resource.build_docker_image (local-exec): #1 [internal] load build definition from Dockerfile      
+null_resource.build_docker_image (local-exec): #1 transferring dockerfile: 485B done
+null_resource.build_docker_image (local-exec): #1 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #2 [internal] load metadata for docker.io/library/node:18-alpine
+null_resource.build_docker_image (local-exec): #2 DONE 1.0s
+
+null_resource.build_docker_image (local-exec): #3 [internal] load .dockerignore
+null_resource.build_docker_image (local-exec): #3 transferring context: 107B done
+null_resource.build_docker_image (local-exec): #3 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #4 [1/5] FROM docker.io/library/node:18-alpine@sha256:e0340f26173b41066d68e3fe9bfbdb6571ab3cad0a4272919a52e36f4ae56925
+null_resource.build_docker_image (local-exec): #4 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): #5 [internal] load build context
+null_resource.build_docker_image (local-exec): #5 transferring context: 81.07kB 0.1s done
+null_resource.build_docker_image (local-exec): #5 DONE 0.1s
+
+null_resource.build_docker_image (local-exec): #6 [2/5] WORKDIR /app
+null_resource.build_docker_image (local-exec): #6 CACHED
+
+null_resource.build_docker_image (local-exec): #7 [3/5] COPY package.json package-lock.json ./
+null_resource.build_docker_image (local-exec): #7 CACHED
+
+null_resource.build_docker_image (local-exec): #8 [4/5] RUN npm install
+null_resource.build_docker_image (local-exec): #8 CACHED
+
+null_resource.build_docker_image (local-exec): #9 [5/5] COPY . .
+null_resource.build_docker_image (local-exec): #9 DONE 0.1s
+
+null_resource.build_docker_image (local-exec): #10 exporting to image
+null_resource.build_docker_image (local-exec): #10 exporting layers 0.0s done
+null_resource.build_docker_image (local-exec): #10 writing image sha256:4d3819a97f366394a5cbcc1be6519dc0deffb1948965c4686f5ca6617fc7d1d1 done
+null_resource.build_docker_image (local-exec): #10 naming to docker.io/library/node done
+null_resource.build_docker_image (local-exec): #10 DONE 0.0s
+
+null_resource.build_docker_image (local-exec): View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/jbgxxvhsvcvtdxwj23lr4q28x
+null_resource.build_docker_image: Creation complete after 2s [id=9099915951640163898]
+docker_image.my_app: Creating...
+docker_image.my_app: Creation complete after 0s [id=sha256:4d3819a97f366394a5cbcc1be6519dc0deffb1948965c4686f5ca6617fc7d1d1node]
+docker_container.my_container: Creating...
+docker_container.my_container: Creation complete after 1s [id=e9e883691721cc97e9c228071a6b0f2327c3dba610dfbdc193729bd58d6893d8]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
